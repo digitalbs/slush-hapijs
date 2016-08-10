@@ -1,0 +1,19 @@
+//Modal Heights
+$uibModal_small: 18em;
+$uibModal_medium: 25em;
+$uibModal_large: 30em;
+
+//Font family
+$bodyFont: 'montserratregular';
+$fa-font-path: "../../assets/fonts" !default;
+
+//Border radius
+$default_border_radius: 5px;
+
+//Breakpoints
+$breakpoint-xs: '(min-width: 0) and (max-width: 599px)';
+$breakpoint-sm: '(min-width: 600px) and (max-width: 959px)';
+$breakpoint-md: '(min-width: 960px) and (max-width: 1280px)';
+$breakpoint-lg: 'only screen and (min-width: 1280px)';
+
+@import "../variables/_colors";

@@ -1,0 +1,25 @@
+//Global Typography and form formatting should go here
+
+label {
+  color: $mid_gray;
+  font-size: 0.9em
+}
+
+p {
+  margin: 0 0 8px;
+}
+
+// Placeholders
+// -------------------------
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+:-moz-placeholder {
+  font-style: italic;
+}
+::-moz-placeholder {
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-style: italic;
+}
