@@ -7,9 +7,7 @@ import mainTemplate from './index.html';
  * @class HomeMainCtrl
  * @constructor
  */
-export default function HomeMainCtrl() {
-    this.title = '<%= appName %> Home page';
-}
+export default function HomeMainCtrl() {}
 
 export default {
     templateUrl: mainTemplate,

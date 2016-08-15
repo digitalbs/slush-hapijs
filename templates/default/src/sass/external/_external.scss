@@ -1,0 +1,6 @@
+@import 'angular';
+@import '_animations';
+<% if(materialize) { %>
+@import '~angular-material/angular-material.scss';
+<% } %>
+@import '~flexybox/dist/flexybox.css';

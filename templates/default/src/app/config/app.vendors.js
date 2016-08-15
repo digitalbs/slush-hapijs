@@ -1,3 +1,5 @@
+'use strict';
+
 //Vendors
 import 'angular-ui-router';
 import 'angular-resource';
@@ -10,11 +12,14 @@ import 'angular-moment/angular-moment';
 import 'angular-translate/dist/angular-translate';
 import 'angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat';
 import 'ng-focus-if';
-import 'angular-ui-bootstrap';
 import 'angular-cookies';
 import 'angularLocalStorage/dist/angularLocalStorage.min';
+<% if(materialize) { %>
+import 'angular-aria';
+import 'angular-material';
+<% } %>
 
-export default [
+let vendorModules = [
     'ui.router',
     'ngResource',
     'ngMessages',
@@ -22,8 +27,12 @@ export default [
     'angularMoment',
     'ngSanitize',
     'ngAnimate',
-    'ui.bootstrap',
     'ngCookies',
     'angularLocalStorage',
+    <% if (materialize) { %>
+    'ngMaterial',
+    <% } %>
     'focus-if'
 ];
+
+export default vendorModules;

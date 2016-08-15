@@ -35,8 +35,12 @@ module.exports = gulp.task('default', done => {
         default: ''
     }, {
         type: 'confirm',
+        name: 'materialize',
+        message: 'Do you want to build this as a Material designed app?'
+    }, {
+        type: 'confirm',
         name: 'moveon',
-        message: 'Continue?'
+        message: 'It\'s scaffolding time. Are you ready?'
     }];
 
     //Ask

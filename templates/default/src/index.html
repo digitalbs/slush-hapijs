@@ -6,20 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="/agility/favicon.ico" type="image/x-icon">
+    <% if (materialize) { %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <% } %>
     <title><%= htmlWebpackPlugin %></title>
 </head>
 
 <body ng-cloak>
 <section>
+    <% if (materialize) { %>
+    <main layout="column" layout-fill>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span><%= appName %></span>
+          <!-- fill up the space between left and right area -->
+          <span flex></span>
+            <md-button class="md-icon-button" aria-label="More">
+                <i class="material-icons">more_vert</i>
+            </md-button>
+        </div>
+      </md-toolbar>
+      <md-content layout-padding ui-view="perspective"></md-content>
+    </main>
+    <% }  else { %>
     <header>
         <h1><%= appName %></h1>
-        <p><%= appDescription %></p>
     </header>
 
     <main>
         <section ui-view="perspective"></section>
     </main>
+    <% } %>
 
 </section>
 </body>

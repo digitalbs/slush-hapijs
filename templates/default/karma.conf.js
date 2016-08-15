@@ -45,6 +45,9 @@ module.exports = function(config) {
             'node_modules/jasmine-expect/dist/jasmine-matchers.js',
             'node_modules/angular/angular.js',
             'node_modules/angular-mocks/angular-mocks.js',
+        <% if (materialize) { %>
+        'node_modules/angular-material/angular-material-mocks.js',
+        <% } %>
             testsToRun
         ],
         reporters: ['progress', 'coverage', 'junit'],

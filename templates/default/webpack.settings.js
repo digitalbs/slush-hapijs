@@ -7,7 +7,7 @@ module.exports = {
             'babel-polyfill',
 
             //App Entry
-            config.srcPath + '/css/sass/app.scss',
+            config.srcPath + '/sass/app.scss',
             config.srcPath + '/bootstrap.js'
         ];
     },
