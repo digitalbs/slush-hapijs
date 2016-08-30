@@ -6,7 +6,7 @@ const ROUTES = {
     'app': {
         url: '/',
         views: {
-            "perspective": {
+            'perspective': {
                 template: '<home-main></home-main>'
             }
         }
