@@ -5,10 +5,10 @@
  *
  * The default task scaffolds the basic application. At the end, it will install the node dependencies
  *
- * @param  {Function} done The meat of the defualt task
+ * @param  {Function} done The meat of the default task
  */
 module.exports = gulp.task('default', done => {
-    let prompts = [{
+    const prompts = [{
         name: 'appName',
         message: 'What is the name of your project?',
         default: defaults.appName
@@ -42,20 +42,20 @@ module.exports = gulp.task('default', done => {
         name: 'moveon',
         message: 'It\'s scaffolding time. Are you ready?'
     }];
-
+    
     //Ask
     inquirer.prompt(prompts, answers => {
         if (!answers.moveon) {
             return done();
         }
         answers.appNameSlug = _.slugify(answers.appName);
-
+        
         answers.appGitRepo = `https://github.com/${answers.userName}/${answers.appName}`;
         answers.htmlWebpackPlugin = '<%= htmlWebpackPlugin.options.title %>';
-
+        
         gulp.src(`${__dirname}/../templates/default/**`)
-            .pipe(template(answers))
-            .pipe(rename(function(file) {
+            .pipe(template(answers, { interpolate: /<%=([\s\S]+?)%>/g }))
+            .pipe(rename((file) => {
                 if (file.basename[0] === '~') {
                     file.basename = `.${file.basename.slice(1)}`;
                 }
@@ -63,7 +63,7 @@ module.exports = gulp.task('default', done => {
             .pipe(conflict('./'))
             .pipe(gulp.dest('./'))
             .pipe(install())
-            .on('end', function() {
+            .on('end', () => {
                 done();
             });
     });
