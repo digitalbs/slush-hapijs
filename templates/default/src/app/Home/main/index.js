@@ -7,7 +7,10 @@ import mainTemplate from './index.html';
  * @class HomeMainCtrl
  * @constructor
  */
-export default function HomeMainCtrl() {}
+class HomeMainCtrl {
+    constructor () {
+    }
+}
 
 export default {
     templateUrl: mainTemplate,

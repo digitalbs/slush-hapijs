@@ -22,3 +22,4 @@ coverage
 distribute
 TESTS-PhantomJS*
 .env
+./idea
