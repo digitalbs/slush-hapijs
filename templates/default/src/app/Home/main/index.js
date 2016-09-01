@@ -1,6 +1,6 @@
 'use strict';
 
-import mainTemplate from './index.html';
+import template from './index.html';
 
 /**
  * @module boilerplateApp.main
@@ -8,12 +8,11 @@ import mainTemplate from './index.html';
  * @constructor
  */
 class HomeMainCtrl {
-    constructor () {
-    }
+    constructor () {}
 }
 
 export default {
-    templateUrl: mainTemplate,
+    templateUrl: template,
     bindings: {},
     controllerAs: 'ctrl',
     controller: HomeMainCtrl

@@ -1,16 +1,17 @@
-require('dotenv').config();
+const envReqIsSilent = process.env.NODE_ENV === 'production';
+
+require('dotenv').config({ silent: envReqIsSilent });
 
 module.exports = {
     development: {
-        html5Routing: false,
-        debug: true,
-        urlPrefix: '#',
+        LOG_DEBUG: false,
+        HTML5_HISTORY: false,
+        DEFAULT_LANG: 'en_us',
         API_URL: process.env.API_URL || '<%= apiURL %>'
     },
     production: {
-        html5Routing: true,
-        debug: false,
-        urlPrefix: '',
+        LOG_DEBUG: false,
+        HTML5_HISTORY: false,
         API_URL: '<%= apiURL %>'
     }
 };
