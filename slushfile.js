@@ -1,18 +1,18 @@
 'use strict';
 
 /*
- * slush-angular-pack
- * https://github.com/digitalbs/slush-angular-pack
+ * slush-hapijs
+ * https://github.com/digitalbs/slush-hapijs
  *
- * Copyright (c) 2016, Brian Schneider
+ * Copyright (c) 2017, Brian Schneider
  * Licensed under the MIT license.
  */
 
 /**
  * Require in necessary modules
  */
-let fs = require('fs');
-let slushTasks = fs.readdirSync(`${__dirname}/slush-tasks`);
+const fs = require('fs');
+const slushTasks = fs.readdirSync(`${__dirname}/slush-tasks`);
 
 /**
  * Setting globals to use for all slush tasks
@@ -31,11 +31,11 @@ global.defaults = (function () {
         osUserName = homeDir && homeDir.split('/').pop() || 'root',
         configFile = `${homeDir}/.gitconfig`,
         user = {};
-    
+
     if (require('fs').existsSync(configFile)) {
         user = require('iniparser').parseSync(configFile).user;
     }
-    
+
     return {
         appName: workingDirName,
         userName: formatUsername(user.name) || osUserName,
@@ -59,8 +59,8 @@ slushTasks.forEach(function (slushTask) {
  * @param  {String} string Github user name
  * @return {String} retuns the formatted user name
  */
-function formatUsername (string) {
+function formatUsername(string) {
     let username = string.toLowerCase();
-    
+
     return username.replace(/\s/g, '');
 }

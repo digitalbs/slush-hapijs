@@ -1,11 +1,11 @@
-# slush-angular-pack 
+# slush-hapijs 
 
-> Slush generator to scaffold out angular + webpack apps written in ES6
+> Slush generator to scaffold out HapiJS APIs. Includes JWT authentication and Swagger docs built in
 
 
 ## Getting Started
 
-Welcome to the Angular and Webpack generator for Slush. Slush-Angular-Pack will scaffold out an Angular application with webpack. It follows the latest Angular architecture organization standards. 
+Welcome to the HapiJS REST API generator for Slush. Slush-hapijs will scaffold out a HapiJS API server. 
 
 ### Prerequisites
 As with any Slush generator, you will need to have **Node** and **Slush** installed globally.
@@ -15,12 +15,12 @@ Install `slush` globally:
 ```bash
 $ npm install -g slush
 ```
-After you have all the prerequisites installed, install the **Slush-Angular-Pack** generator globally. 
+After you have all the prerequisites installed, install the **Slush-hapijs** generator globally. 
 
-Install `slush-angular-pack` globally:
+Install `slush-hapijs` globally:
 
 ```bash
-$ npm install -g slush-angular-pack
+$ npm install -g slush-hapijs
 ```
 
 ### Usage
@@ -35,15 +35,11 @@ Run the generator from within the new folder:
 
 ```bash
 $ cd my-project 
-$ slush angular-pack
+$ slush hapijs
 ```
 
 There are some basic scaffolding questions to help get your application built out. During the scaffolding process, it will install all node modules. 
 
-Once you are ready to start developing, you can run the application in develop mode with the following npm script run:
-```bash
-$ npm run develop
-```
 
 ## Getting To Know Slush
 
@@ -55,16 +51,16 @@ To find out more about Slush, check out the [documentation](https://github.com/k
 
 ## Contributing
 
-See the [CONTRIBUTING Guidelines](https://github.com/digitalbs/slush-angular-pack/blob/master/CONTRIBUTING.md)
+See the [CONTRIBUTING Guidelines](https://github.com/digitalbs/slush-hapijs/blob/master/CONTRIBUTING.md)
 
 ## Support
-If you have any problem or suggestion please open an issue [here](https://github.com/digitalbs/slush-angular-pack/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/digitalbs/slush-hapijs/issues).
 
 ## License
 
 The MIT License
 
-Copyright (c) 2016, Brian Schneider
+Copyright (c) 2017, Brian Schneider
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

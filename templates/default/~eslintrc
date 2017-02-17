@@ -1,0 +1,39 @@
+rules:
+  strict:
+    - 0
+  quotes:
+    - 2
+    - single
+    - allowTemplateLiterals: true
+  linebreak-style:
+    - 2
+    - unix
+  semi:
+    - 2
+    - always
+  no-underscore-dangle: 0
+  indent:
+    - 2
+env:
+  es6: true
+  browser: true
+globals:
+  require: true
+  _: true
+  afterEach: true
+  angular: true
+  beforeEach: true
+  define: true
+  describe: true
+  expect: true
+  inject: true
+  it: true
+  jasmine: true
+  sinon: true
+  $_: true
+  config: true
+  document: true
+  module: true
+parserOptions:
+  sourceType: module
+

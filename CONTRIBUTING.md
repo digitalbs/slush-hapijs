@@ -1,4 +1,4 @@
-# Contributing to slush-angular-webpack
+# Contributing to slush-hapijs
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved.
@@ -93,11 +93,11 @@ project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/slush-angular-webpack
+   git clone https://github.com/<your-username>/slush-hapijs
    # Navigate to the newly cloned directory
-   cd slush-angular-webpack
+   cd slush-hapijs
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/digitalbs/slush-angular-webpack
+   git remote add upstream https://github.com/digitalbs/slush-hapijs
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:

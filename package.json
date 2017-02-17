@@ -1,7 +1,7 @@
 {
-  "name": "slush-angular-pack",
-  "description": "Slush generator to scaffold out angular + webpack apps. Built in ES6.",
-  "version": "0.0.0",
+  "name": "slush-hapijs",
+  "description": "Slush generator to scaffold out HapiJS APIs. Includes JWT authentication and Swagger docs built in.",
+  "version": "0.0.1",
   "homepage": "",
   "author": {
     "name": "Brian Schneider",

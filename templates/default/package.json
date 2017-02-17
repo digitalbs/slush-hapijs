@@ -1,87 +1,31 @@
 {
-    "name": "<%= appName %>",
-    "version": "<%= appVersion %>",
-    "description": "<%= appDescription %>",
-    "engines": {
-        "node": ">= 6.3.1"
-    },
-    "scripts": {
-        "develop": "export NODE_ENV=development; webpack-dev-server --content-base build/ --hot --inline --progress --colors --compress",
-        "distribute": "export NODE_ENV=production; webpack --progress --colors",
-        "test": "karma start --single-run",
-        "test-coverage": "karma start --single-run && open './coverage/PhantomJS 2.1.1 (Mac OS X 0.0.0)/index.html'",
-        "test-tdd": "karma start --auto-watch",
-        "test-browser": "karma start --single-run --browsers 'PhantomJS,Chrome,Firefox'",
-        "node-purge": "rm -rf node_modules",
-        "node-reinstall": "npm run node-purge && npm install",
-        "node-packages": "npm list --depth=0",
-        "node-updates": "./node_modules/.bin/ncu '/^(?!npm-shrinkwrap|jsdom).*$/'",
-        "node-upgrade": "npm run node-updates -- -u",
-        "node-killall": "killall node"
-    },
-    "author": "YOUR TEAM",
-    "license": "MIT",
-    "devDependencies": {
-        "angular-mocks": "~1.5.8",
-        "babel-core": "~6.14.0",
-        "babel-eslint": "~6.1.2",
-        "babel-loader": "~6.2.5",
-        "babel-plugin-istanbul": "^2.0.0",
-        "babel-polyfill": "~6.13.0",
-        "babel-preset-es2015": "~6.14.0",
-        "clean-webpack-plugin": "~0.1.10",
-        "css-loader": "~0.24.0",
-        "dotenv": "~2.0.0",
-        "eslint": "~3.4.0",
-        "extract-text-webpack-plugin": "~1.0.1",
-        "file-loader": "~0.9.0",
-        "html-loader": "~0.4.3",
-        "html-webpack-plugin": "~2.22.0",
-        "imports-loader": "~0.6.5",
-        "inline-source-map": "~0.6.2",
-        "isparta": "~4.0.0",
-        "jasmine": "~2.5.0",
-        "jasmine-core": "~2.5.0",
-        "jasmine-sinon": "~0.4.0",
-        "karma": "~1.2.0",
-        "karma-babel-preprocessor": "~6.0.1",
-        "karma-chrome-launcher": "^2.0.0",
-        "karma-coverage": "~1.1.1",
-        "karma-firefox-launcher": "^1.0.0",
-        "karma-jasmine": "~1.0.2",
-        "karma-phantomjs-launcher": "~1.0.2",
-        "karma-source-map-support": "^1.2.0",
-        "karma-sourcemap-loader": "~0.3.7",
-        "karma-webpack": "~1.8.0",
-        "ng-annotate": "~1.2.1",
-        "ng-annotate-webpack-plugin": "~0.1.3",
-        "ngtemplate-loader": "~1.3.1",
-        "node-sass": "~3.8.0",
-        "phantomjs-prebuilt": "^2.1.12",
-        "sass-loader": "~4.0.0",
-        "script-loader": "~0.7.0",
-        "sinon": "~1.17.5",
-        "style-loader": "~0.13.1",
-        "url-loader": "~0.5.7",
-        "webpack": "~1.13.2",
-        "yargs": "~5.0.0"
-    },
-    "dependencies": {
-        "angular": "~1.5.8",
-        "angular-animate": "~1.5.8",
-        "angular-cookies": "~1.5.8",
-        "angular-messages": "~1.5.8",
-        "angular-mocks": "~1.5.8",
-        "angular-moment": "~1.0.0-beta.6",
-        "angular-resource": "~1.5.8",
-        "angular-sanitize": "~1.5.8",
-        "angular-translate": "~2.11.1",
-        "angular-ui-router": "~0.3.1",
-        "babel-plugin-transform-object-assign": "~6.8.0",
-        "lodash": "~4.15.0",
-        "angular-aria": "^1.5.8",
-        <% if(materialize) { %>
-        "angular-material": "^1.1.0"
-        <% } %>
-    }
+  "name": "<%= apiName %>",
+  "version": "<%= apiVersion %>",
+  "description": "<%= apiDescription %>",
+  "main": "server.js",
+  "scripts": {
+    "test": "lab -r console -c test"
+  },
+  "keywords": [
+    "API"
+  ],
+  "author": "<%= authorName %>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "bluebird": "^3.4.1",
+    "boom": "^3.2.2",
+    "glob": "^7.0.5",
+    "hapi": "^14.2.0",
+    "hapi-auth-jwt": "^4.0.0",
+    "hapi-swagger": "^7.6.0",
+    "inert": "^4.1.0",
+    "joi": "^9.0.4",
+    "mongoose": "^4.8.3",
+    "vision": "^4.1.1"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "lab": "^12.1.0"
+  }
 }
