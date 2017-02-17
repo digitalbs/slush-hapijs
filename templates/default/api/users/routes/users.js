@@ -3,8 +3,7 @@
 const bcrypt = require('bcrypt');
 const Boom = require('boom');
 const User = require('../model/User');
-const createUserSchema = require('../schemas/createUser');
-const authenticateUserSchema = require('../schemas/authenticateUser');
+const userSchema = require('../schemas/userSchema');
 const verifyUserCredentials = require('../util/userFunctions').verifyUserCredentials;
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
@@ -16,10 +15,6 @@ function _hashPassword(password) {
         //generate a SALT level 10 strength
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
-                if (err) {
-                    reject(err);
-                }
-
                 resolve(hash);
             });
         });
@@ -41,7 +36,7 @@ module.exports = [{
                         throw Boom.badRequest(err);
                     }
 
-                    res(users);
+                    res(users).code(200);
                 });
         },
         tags: ['api'],
@@ -50,6 +45,28 @@ module.exports = [{
             strategy: 'jwt',
             scope: 'admin'
         }
+    }
+}, {
+    method: 'GET',
+    path: '/users/{username}',
+    config: {
+        description: 'Get user by name',
+        notes: ['Gets a users information by their name'],
+        handler(req, res) {
+            User
+                .findOne({
+                    username: req.params.username
+                })
+                .exec((err, user) => {
+                    if (err) {
+                        throw Boom.badRequest(err);
+                    }
+
+                    res(user || {}).code(200);
+                });
+        },
+        tags: ['api'],
+        validate: userSchema.getUser
     }
 }, {
     method: 'POST',
@@ -74,6 +91,7 @@ module.exports = [{
 
                     //if user is saved successfully, issue a JWT
                     res({
+                        username: user.username,
                         id_token: createToken(user)
                     }).code(201);
                 });
@@ -83,38 +101,45 @@ module.exports = [{
         },
         auth: false,
         tags: ['api'],
-        validate: {
-            payload: createUserSchema
-        }
+        validate: userSchema.user
     }
 }, {
     method: 'PUT',
-    path: '/users/{id}',
+    path: '/users/{username}',
     config: {
         description: 'Update a current user.',
+        notes: ['Updates the targeted user in Database'],
         handler: (req, res) => {
             User
-                .findById(req.params.id, (err, user) => {
+                .find({
+                    username: req.params.username
+                }, (err, user) => {
+                    user.username = req.payload.username;
+                    user.password = req.payload.password;
+
                     return user.save((err) => {
                         if (err) {
                             console.log(err);
                         }
+                        console.log(user);
 
                         res().code(200);
                     });
                 });
         },
-        tags: ['api']
+        tags: ['api'],
+        validate: userSchema.updateUser
     }
 }, {
     method: 'DELETE',
-    path: '/users/{id}',
+    path: '/users/{username}',
     config: {
         description: 'Delete a user.',
+        notes: ['Removes the User from the database'],
         handler: (req, res) => {
             User
                 .find({
-                    _id: req.params.id
+                    username: req.params.username
                 })
                 .remove(() => {
                     console.log('removed user');
@@ -122,19 +147,14 @@ module.exports = [{
                 });
         },
         tags: ['api'],
-        validate: {
-            params: {
-                id: Joi.string()
-                    .required()
-                    .description('id of the user being removed')
-            }
-        }
+        validate: userSchema.deleteUser
     }
 }, {
     method: 'POST',
     path: '/users/authenticate',
     config: {
         description: 'Authenticates User',
+        notes: ['Authenticates the User. If user is authorized, a JWT is returned for use to make other API calls'],
         //before route handler runs, verify user is unique
         pre: [{
             method: verifyUserCredentials,
@@ -147,8 +167,6 @@ module.exports = [{
         },
         tags: ['api'],
         auth: false,
-        validate: {
-            payload: authenticateUserSchema
-        }
+        validate: userSchema.user
     }
 }];
