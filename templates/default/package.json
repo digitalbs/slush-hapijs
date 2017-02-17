@@ -4,11 +4,16 @@
   "description": "<%= apiDescription %>",
   "main": "server.js",
   "scripts": {
-    "test": "lab -r console -c test"
+    "test": "lab -r console -c test",
+    "start": "nodemon ./server.js"
   },
   "keywords": [
     "API"
   ],
+  "repository": {
+    "type": "git",
+    "url": "<%= apiGitRepo %>"
+  },
   "author": "<%= authorName %>",
   "license": "MIT",
   "dependencies": {
@@ -26,6 +31,7 @@
   },
   "devDependencies": {
     "code": "^4.0.0",
-    "lab": "^12.1.0"
+    "lab": "^12.1.0",
+    "nodemon": "^1.11.0"
   }
 }

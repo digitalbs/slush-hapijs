@@ -30,8 +30,8 @@ module.exports = [{
     method: 'GET',
     path: '/users',
     config: {
-        description: 'Get all users registered on Recipe Nook',
-        notes: ['Gets all users on Recipe Nook'],
+        description: 'Get all users registered',
+        notes: ['Gets all users in Database'],
         handler: (req, res) => {
             User
                 .find()
@@ -41,10 +41,6 @@ module.exports = [{
                         throw Boom.badRequest(err);
                     }
 
-                    if (!users.length) {
-                        throw Boom.notFound('No users found!');
-                    }
-
                     res(users);
                 });
         },
@@ -52,15 +48,15 @@ module.exports = [{
         //authenticates route. Only admins can view this
         auth: {
             strategy: 'jwt',
-            scope: false
+            scope: 'admin'
         }
     }
 }, {
     method: 'POST',
     path: '/users',
     config: {
-        description: 'Create a user for Recipe Nook.',
-        notes: ['This endpoint will create a user on Recipe Nook. Before the handler is hit to create a user, it will verify if the user exists. If they do, it will respond back with an error.'],
+        description: 'Create a user',
+        notes: ['This endpoint will create a user. Before the handler is hit to create a user, it will verify if the user exists. If they do, it will respond back with an error.'],
         pre: [{
             method: verifyUniqueUser
         }],
@@ -95,7 +91,7 @@ module.exports = [{
     method: 'PUT',
     path: '/users/{id}',
     config: {
-        description: 'Update a current user on the Recipe Nook website',
+        description: 'Update a current user.',
         handler: (req, res) => {
             User
                 .findById(req.params.id, (err, user) => {
@@ -114,7 +110,7 @@ module.exports = [{
     method: 'DELETE',
     path: '/users/{id}',
     config: {
-        description: 'Delete a user on the Recipe Nook website',
+        description: 'Delete a user.',
         handler: (req, res) => {
             User
                 .find({
@@ -138,7 +134,7 @@ module.exports = [{
     method: 'POST',
     path: '/users/authenticate',
     config: {
-        description: 'Authenticates User for Recipe Nook',
+        description: 'Authenticates User',
         //before route handler runs, verify user is unique
         pre: [{
             method: verifyUserCredentials,

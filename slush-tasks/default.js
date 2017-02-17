@@ -41,8 +41,7 @@ module.exports = gulp.task('default', done => {
         default: 'SECRET'
     }, {
         name: 'databaseName',
-        message: 'What name would you like to use for your Mongo database',
-        default: defaults.apiName
+        message: 'What name would you like to use for your Mongo database'
     }, {
         type: 'confirm',
         name: 'moveon',
