@@ -1,7 +1,7 @@
 {
   "name": "slush-hapijs",
   "description": "Slush generator to scaffold out HapiJS APIs. Includes JWT authentication and Swagger docs built in.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "",
   "author": {
     "name": "Brian Schneider",
