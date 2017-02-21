@@ -37,9 +37,16 @@ Run the generator from within the new folder:
 $ cd my-project 
 $ slush hapijs
 ```
-
 There are some basic scaffolding questions to help get your application built out. During the scaffolding process, it will install all node modules. 
 
+## Sub-Generators
+### Route
+To install a route, navigate to the directory you want to create the route in. For example, if you want to add a route to your API routes directory, navigate to the root of that folder. Then run:
+```
+$ slush hapijs:route
+```
+
+Answer the questions to setup your route. 
 
 ## Getting To Know Slush
 
