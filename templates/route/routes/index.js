@@ -34,7 +34,7 @@ module.exports = [{
         description: 'Get <%= routeName %> by id',
         notes: ['Gets a <%= routeName %> information by their id'],
         handler(req, res) {
-            User
+            <%= capRouteName %>
                 .findOne({
                     id: req.params.id
                 })
