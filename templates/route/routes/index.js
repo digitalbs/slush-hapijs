@@ -36,7 +36,7 @@ module.exports = [{
         handler(req, res) {
             <%= capRouteName %>
                 .findOne({
-                    id: req.params.id
+                    _id: req.params.id
                 })
                 .exec((err, <%= routeName %>) => {
                     if (err) {
@@ -83,7 +83,7 @@ module.exports = [{
         handler: (req, res) => {
             <%= capRouteName %>
                 .find({
-                    id: req.params.id
+                    _id: req.params.id
                 }, (err, <%= routeName %>) => {
 
                     return <%= routeName %>.save((err) => {
@@ -108,7 +108,7 @@ module.exports = [{
         handler: (req, res) => {
             <%= capRouteName %>
                 .find({
-                    id: req.params.id
+                    _id: req.params.id
                 }, (err, <%= routeName %>) => {
                     //Do PATCH HERE
                 });
