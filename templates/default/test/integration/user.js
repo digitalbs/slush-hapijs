@@ -161,23 +161,6 @@ describe('User: ', () => {
         });
     });
 
-    it('will throw an error if calling API with non-existing user name', (done) => {
-        const request = {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${jwtToken}`
-            },
-            url: '<%= apiPrefix %>/users/invalidUser'
-        };
-
-        Server.inject(request, (response) => {
-            expect(response.statusCode).to.equal(400);
-            console.log(response.error);
-
-            done();
-        });
-    });
-
     it('will delete a regular user by their user name', (done) => {
         const request = {
             method: 'DELETE',

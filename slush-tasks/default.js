@@ -8,7 +8,7 @@
  * @param  {Function} done The meat of the default task
  */
 module.exports = gulp.task('default', done => {
-    const prompts = [{
+    let prompts = [{
         name: 'apiName',
         message: 'What is the name of your API?'
     }, {
@@ -45,11 +45,11 @@ module.exports = gulp.task('default', done => {
     }, {
         type: 'confirm',
         name: 'moveon',
-        message: "It's scaffolding time. Are you ready?"
+        message: 'Are you ready to scaffold your API?'
     }];
 
     //Ask
-    inquirer.prompt(prompts, answers => {
+    inquirer.prompt(prompts).then((answers) => {
         if (!answers.moveon) {
             return done();
         }

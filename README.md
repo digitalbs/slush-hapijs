@@ -36,8 +36,9 @@ Run the generator from within the new folder:
 ```bash
 $ cd my-project 
 $ slush hapijs
+$ npm install
 ```
-There are some basic scaffolding questions to help get your application built out. During the scaffolding process, it will install all node modules. 
+There are some basic scaffolding questions to help get your application built out. During the scaffolding process. 
 
 ## Sub-Generators
 ### Route

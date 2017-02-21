@@ -1,4 +1,4 @@
- console{
+{
   "name": "<%= apiName %>",
   "version": "<%= apiVersion %>",
   "description": "<%= apiDescription %>",

@@ -20,6 +20,7 @@ const slushTasks = fs.readdirSync(`${__dirname}/slush-tasks`);
 
 global.gulp = require('gulp');
 global.install = require('gulp-install');
+global.shell = require('gulp-shell');
 global.conflict = require('gulp-conflict');
 global.global.template = require('gulp-template');
 global.rename = require('gulp-rename');
