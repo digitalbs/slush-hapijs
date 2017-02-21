@@ -1,10 +1,10 @@
-{
+ console{
   "name": "<%= apiName %>",
   "version": "<%= apiVersion %>",
   "description": "<%= apiDescription %>",
   "main": "server.js",
   "scripts": {
-    "test": "lab -r console -c test",
+    "test": "lab -r console test",
     "start": "nodemon ./server.js"
   },
   "keywords": [

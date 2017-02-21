@@ -20,14 +20,14 @@ const userSchema = {
         params: {
             username: Joi.string()
                 .required()
-                .description('name of the user being removed')
+                .description('name of the user being selected')
         }
     },
     updateUser: {
         params: {
             username: Joi.string()
                 .required()
-                .description('name of the user being removed')
+                .description('name of the user being updated')
         },
         payload: {
             username: Joi.string().min(2).max(30).required().description('Name of the user for the API'),
