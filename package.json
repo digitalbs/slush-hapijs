@@ -1,7 +1,7 @@
 {
   "name": "slush-hapijs",
   "description": "Slush generator to scaffold out HapiJS APIs. Includes JWT authentication and Swagger docs built in.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "",
   "author": {
     "name": "Brian Schneider",
@@ -17,20 +17,20 @@
     "email": "schneid.brian@gmail.com"
   },
   "engines": {
-    "node": ">= 6.3.1"
+    "node": ">= 10.15.3"
   },
   "main": "slushfile.js",
   "scripts": {},
   "dependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^3.6.2",
     "gulp-conflict": "^0.4.0",
     "gulp-es6-template-strings": "^1.0.1",
-    "gulp-install": "^0.6.0",
+    "gulp-install": "^1.1.0",
     "gulp-rename": "^1.2.2",
-    "gulp-shell": "^0.5.2",
-    "gulp-template": "^4.0.0",
+    "gulp-shell": "^0.7.0",
+    "gulp-template": "^5.0.0",
     "iniparser": "^1.0.5",
-    "inquirer": "^3.0.1",
+    "inquirer": "^6.2.2",
     "slush": "^1.1.1",
     "underscore.string": "^3.3.4"
   },

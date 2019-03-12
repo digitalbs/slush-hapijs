@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Boom = require('boom');
 const User = require('../model/User');
 const userSchema = require('../schemas/userSchema');
@@ -27,17 +27,17 @@ module.exports = [{
     config: {
         description: 'Get all users registered',
         notes: ['Gets all users in Database'],
-        handler: (req, res) => {
-            User
+        handler: async (req, h) => {
+            const users = await User
                 .find()
                 .select('-password -__v')
-                .exec((err, users) => {
-                    if (err) {
-                        throw Boom.badRequest(err);
-                    }
-
-                    res(users).code(200);
+                .exec().then((users) => {
+                    return users;
+                }).catch((err) => {
+                    throw Boom.badRequest(err);
                 });
+
+            return users;
         },
         tags: ['api'],
         //authenticates route. Only admins can view this
@@ -52,18 +52,18 @@ module.exports = [{
     config: {
         description: 'Get user by name',
         notes: ['Gets a users information by their name'],
-        handler(req, res) {
-            User
+        handler: async (req, h) => {
+            const user = User
                 .findOne({
                     username: req.params.username
                 })
-                .exec((err, user) => {
-                    if (err) {
-                        throw Boom.badRequest(err);
-                    }
-
-                    res(user || {}).code(200);
+                .exec().then((user) => {
+                    return user;
+                }).catch((err) => {
+                    throw Boom.badRequest(err);
                 });
+
+            return user;
         },
         tags: ['api'],
         validate: userSchema.getUser
@@ -77,24 +77,28 @@ module.exports = [{
         pre: [{
             method: verifyUniqueUser
         }],
-        handler: (req, res) => {
+        handler: async (req, h) => {
             let user = new User();
             user.username = req.payload.username;
-            user.admin = false;
+            user.admin = req.payload.admin;
 
-            _hashPassword(req.payload.password).then(hash => {
+            return _hashPassword(req.payload.password).then(hash => {
                 user.password = hash;
-                user.save((err, user) => {
-                    if (err) {
+
+                const saveUser = async function () {
+                    try {
+                        const newUser = await user.save();
+
+                        return {
+                            username: newUser.username,
+                            id_token: createToken(newUser)
+                        };
+                    } catch (err) {
                         throw Boom.badRequest(err);
                     }
+                }
 
-                    //if user is saved successfully, issue a JWT
-                    res({
-                        username: user.username,
-                        id_token: createToken(user)
-                    }).code(201);
-                });
+                return saveUser();
             }).catch(err => {
                 throw Boom.badRequest(err);
             });
@@ -109,23 +113,16 @@ module.exports = [{
     config: {
         description: 'Update a current user.',
         notes: ['Updates the targeted user in Database'],
-        handler: (req, res) => {
-            User
-                .find({
+        handler: async (req, h) => {
+            const updatedUser = User.where({
                     username: req.params.username
-                }, (err, user) => {
-                    user.username = req.payload.username;
-                    user.password = req.payload.password;
-
-                    return user.save((err) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        console.log(user);
-
-                        res().code(200);
-                    });
+                }).update(req.payload).then((updatePayload) => {
+                    return updatePayload;
+                }).catch(err => {
+                    throw Boom.badRequest(err);
                 });
+            
+            return updatedUser;
         },
         tags: ['api'],
         validate: userSchema.updateUser
@@ -136,15 +133,17 @@ module.exports = [{
     config: {
         description: 'Delete a user.',
         notes: ['Removes the User from the database'],
-        handler: (req, res) => {
-            User
+        handler: async (req, h) => {
+            const deletedUser = await User
                 .find({
                     username: req.params.username
                 })
-                .remove(() => {
+                .remove().then(() => {
                     console.log('removed user');
-                    res().code(204);
+                    return h.response().code(204);
                 });
+            
+            return deletedUser;
         },
         tags: ['api'],
         validate: userSchema.deleteUser
@@ -160,10 +159,10 @@ module.exports = [{
             method: verifyUserCredentials,
             assign: 'user'
         }],
-        handler: (req, res) => {
-            res({
+        handler: async (req, h) => {
+            return {
                 id_token: createToken(req.pre.user)
-            }).code(201);
+            };
         },
         tags: ['api'],
         auth: false,
