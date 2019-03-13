@@ -2,47 +2,67 @@
 
 const Boom = require('boom');
 const User = require('../model/User');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
-function _verifyUniqueUser(req, res) {
-    //Find entry in database that matches
-    User.findOne({
+async function findUser (userNameToMatch) {
+    const user = await User.findOne({
         $or: [{
-            username: req.payload.username
+            username: userNameToMatch
         }]
-    }, (err, user) => {
+    });
+
+    return user;
+}
+
+async function _verifyUniqueUser(req, h) {
+    //Find entry in database that matches
+    return findUser(req.payload.username).then((user) => {
         if (user) {
             if (user.username === req.payload.username) {
-                res(Boom.badRequest('usernameTaken'));
+                return Boom.badRequest('usernameTaken');
             }
         }
 
-        //If everything is good, send back to the API method handler
-        res(req.payload);
+        return req.payload;
+    }).catch((err) => {
+        throw Boom.badRequest(err);
     });
 }
 
-function _verifyUserCredentials(req, res) {
-    User.findOne({
-        $or: [{
-            username: req.payload.username
-        }]
-    }, (err, user) => {
+async function _verifyUserCredentials(req, h) {
+    return findUser(req.payload.username).then((user) => {
         if (user) {
-            bcrypt.compare(req.payload.password, user.password, (err, isValid) => {
-                if (isValid) {
-                    res(user);
-                } else {
-                    res(Boom.badRequest('incorrectPassword'));
-                }
+            return new Promise ((resolve, reject) => {
+                bcrypt.compare(req.payload.password, user.password, (err, isValid) => {
+                    if (isValid) {
+                        resolve(user);
+                    } else {
+                        reject(Boom.badRequest('incorrectPassword'));
+                    }
+                });
             });
         } else {
-            res(Boom.badRequest('incorrectCredentials'));
+            return Boom.badRequest('incorrectCredentials');
         }
+    }).catch((err) => {
+        throw Boom.badRequest(err);
+    });
+}
+
+async function _validate (decodedPayload) {
+    return findUser(decodedPayload.username).then((user) => {
+        if (!user) {
+            return { isValid: false };
+        } else {
+            return { isValid: true };
+        }
+    }).catch((err) => {
+        throw Boom.badRequest(err);
     });
 }
 
 module.exports = {
     verifyUniqueUser: _verifyUniqueUser,
-    verifyUserCredentials: _verifyUserCredentials
+    verifyUserCredentials: _verifyUserCredentials,
+    validate: _validate
 };

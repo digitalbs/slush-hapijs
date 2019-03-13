@@ -19,7 +19,7 @@ function createToken(user) {
         scope: scopes
     }, secret, {
         algorithm: 'HS256',
-        expiresn: '1h'
+        expiresIn: '1h'
     });
 }
 

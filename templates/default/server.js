@@ -9,16 +9,17 @@ const config = require('./config');
 const HapiSwagger = require('hapi-swagger');
 const Inert = require('inert');
 const Vision = require('vision');
-const HapiAuthJWT = require('hapi-auth-jwt');
+const HapiAuthJWT = require('hapi-auth-jwt2');
 const pack = require('./package');
-const server = new Hapi.Server();
+const verifyUserCredentials = require('./api/users/util/userFunctions').validate;
 
-server.connection({
+const server = new Hapi.Server({
     port: '<%= portNumber %>',
     routes: {
         cors: true
     }
 });
+
 
 server.realm.modifiers.route.prefix = '<%= apiPrefix %>';
 
@@ -45,17 +46,26 @@ const swaggerOptions = {
     }]
 };
 
-server.register([
-    HapiAuthJWT,
-    Inert,
-    Vision,
-    {
-        'register': HapiSwagger,
-        'options': swaggerOptions
-    }], err => {
+const validate = async function (decoded, request) {
+    return verifyUserCredentials(decoded).then((validation) => {
+        return validation;
+    });
+};
+
+const init = async function () {
+    await server.register([
+        HapiAuthJWT,
+        Inert,
+        Vision,
+        {
+            plugin: HapiSwagger,
+            options: swaggerOptions
+        }]);
+
     //Hapi Auth Strategy with name and scheme of JWT
     server.auth.strategy('jwt', 'jwt', {
         key: config.secret,
+        validate: validate,
         verifyOptions: {
             algorithms: ['HS256']
         }
@@ -71,22 +81,20 @@ server.register([
 
         server.route(route);
     });
-});
 
-//start up the server
-server.start(err => {
-    if (err) {
-        throw err;
-    }
+    //start up the server
+    await server.start();
 
+    return server;
+};
+
+init().then((server) => {
     //if server starts, connect to database
     mongoose.connect(dbUrl, {}, err => {
-        if (err) {
-            throw err;
-        }
-
         console.log(`Now running on ${server.info.port}`);
     });
+}).catch((err) => {
+    console.log(err);
 });
 
 module.exports = server;
