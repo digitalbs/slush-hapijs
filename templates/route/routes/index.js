@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Boom = require('boom');
 const <%= capRouteName %> = require('../model/<%= capRouteName %>');
 const <%= routeName%>Schema = require('../schemas/<%= routeName %>Schema');
